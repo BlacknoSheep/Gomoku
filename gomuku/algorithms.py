@@ -131,7 +131,8 @@ def alpha_beta_max(board, current_score, depth=1, alpha=float('-inf'), beta=floa
     board_copy = board.copy()
     max_position = positions[0]
     if depth == 0:  # 深度为0，终止递归，什么也没干，所以depth至少要设为1
-        return board[-1], current_score
+        # return board[-1], current_score  # 递归到叶子节点（递归非常耗时间）
+        return max_value(board, current_score)  # 这里没有继续递归下去，速度更快
     for pos in positions:
         board_copy.append((pos[0], pos[1], color))  # 尝试落子在pos
         if win_state(board_copy):  # 已经获胜的没必要继续搜索分支
@@ -157,7 +158,8 @@ def alpha_beta_min(board, current_score, depth=1, alpha=float('-inf'), beta=floa
     board_copy = board.copy()
     min_position = positions[0]
     if depth == 0:  # 深度为0，终止递归
-        return board[-1], current_score
+        # return board[-1], current_score  # 递归到叶子节点（递归非常耗时间）
+        return min_value(board, current_score)  # 这里没有继续递归下去，速度更快
     for pos in positions:
         board_copy.append((pos[0], pos[1], color))  # 尝试落子在pos
         if win_state(board_copy):  # 已经获胜的没必要继续搜索分支
